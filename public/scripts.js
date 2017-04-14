@@ -1,13 +1,14 @@
 $("document").ready(function() {
   // DOM chargé 
 
+/*
 new Card({
   form: 'form',
   container: '.card',
   formSelectors: {
     numberInput: 'input[name=number]',
     expiryInput: 'input[name=expiry]',
-    cvcInput: 'input[name=cvv]',
+    cvcInput: 'input[name=cvc]',
     nameInput: 'input[name=name]'
   },
 
@@ -21,7 +22,7 @@ new Card({
     cvc: '•••'
   }
 });
-
+*/
 
 
 // Create a Stripe client
@@ -29,6 +30,7 @@ Stripe.setPublishableKey('pk_test_8xAO9MLDK5jF8zlMJwSBqKKr');
 
 
 $("#payment-form").submit(function(event){
+    return;
   event.preventDefault();
     //Stripe.card.validateExpiry($('#card-expiry').val());
 console.log($('#card-number').val(),$('#card-cvc').val(),$('#card-expiry').val());

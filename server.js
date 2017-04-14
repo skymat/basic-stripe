@@ -28,26 +28,34 @@ const keySecret = "sk_test_KjpwwIgd1HrGGP0gkhgY4LTD";
 
 const stripe = require("stripe")(keySecret)
 
+
+
 app.get("/", (req, res) =>
   res.render("home", {keyPublishable}));
+
+
 
 app.post("/charge", (req, res) => {
   let amount = 500;
   console.log(req.body);
+if (req.body && req.body.stripeToken){
+  if (!req.body.stripeEmail)
+    req.body.stripeEmail = "test@test.com";
 
-if (req.body && !req.body.stripeEmail)
-  req.body.stripeEmail = "test@test.com";
-
-  stripe.customers.create({
-     email: req.body.stripeEmail,
-    source: req.body.stripeToken
-  })
-  .then(customer =>
-    stripe.charges.create({
-      amount,
-      description: "Sample Charge",
-         currency: "eur",
-         customer: customer.id
-    }))
-  .then(charge => res.render("charge"));
+    stripe.customers.create({
+      email: req.body.stripeEmail,
+      name : req.body.name,
+      source: req.body.stripeToken
+    })
+    .then(customer =>
+      stripe.charges.create({
+        amount,
+        description: "Sample Charge",
+          currency: "eur",
+          customer: customer.id
+      }))
+    .then(charge => res.json({value :"Paiement effectué avec succès"}));
+}
+else
+  console.log("Pas de req.body");
 });
