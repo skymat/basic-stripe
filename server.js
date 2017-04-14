@@ -46,7 +46,7 @@ if (req.body && !req.body.stripeEmail)
     stripe.charges.create({
       amount,
       description: "Sample Charge",
-         currency: "usd",
+         currency: "eur",
          customer: customer.id
     }))
   .then(charge => res.render("charge"));
